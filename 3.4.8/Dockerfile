@@ -5,9 +5,9 @@ MAINTAINER Elisey Zanko <elisey.zanko@gmail.com>
 RUN apk add --no-cache \
     bash
 
-ENV ZOOKEEPER_USER zookeeper
+ARG ZOOKEEPER_USER=zookeeper
 # If you change this then you have to change dataDir in zoo.cfg
-ENV ZOOKEEPER_DATA_DIR /tmp/zookeeper
+ARG ZOOKEEPER_DATA_DIR=/tmp/zookeeper
 
 # Add a user and make dirs
 RUN set -x \
@@ -15,9 +15,8 @@ RUN set -x \
     && mkdir -p "$ZOOKEEPER_DATA_DIR" \
     && chown -R "$ZOOKEEPER_USER:$ZOOKEEPER_USER" "$ZOOKEEPER_DATA_DIR"
 
-ENV GPG_KEY 2A4A8024702DD5FC061ABCD8BE3B6B9392BC2F2B
-ENV DISTRO_NAME zookeeper-3.4.8
-ENV PATH $PATH:/$DISTRO_NAME/bin
+ARG GPG_KEY=2A4A8024702DD5FC061ABCD8BE3B6B9392BC2F2B
+ARG DISTRO_NAME=zookeeper-3.4.8
 
 # Download Apache Zookeeper, verify its PGP signature, untar and clean up
 RUN set -x \
@@ -40,4 +39,5 @@ USER $ZOOKEEPER_USER
 VOLUME ["$ZOOKEEPER_DATA_DIR"]
 EXPOSE 2181
 
+ENV PATH $PATH:/$DISTRO_NAME/bin
 CMD ["zkServer.sh", "start-foreground"]
