@@ -17,9 +17,9 @@ Apache ZooKeeper is a software project of the Apache Software Foundation, provid
 
 ## Start a Zookeeper server instance
 
-	$ docker run --name some-zookeeper -d 31z4/zookeeper
+	$ docker run --name some-zookeeper --restart always -d 31z4/zookeeper
 
-This image includes `EXPOSE 2181` (the zookeeper port), so standard container linking will make it automatically available to the linked containers.
+This image includes `EXPOSE 2181` (the zookeeper port), so standard container linking will make it automatically available to the linked containers. Since the Zookeeper "fails fast" it's better to always restart it.
 
 ## Connect to Zookeeper from an application in another Docker container
 
@@ -29,11 +29,52 @@ This image includes `EXPOSE 2181` (the zookeeper port), so standard container li
 
 	$ docker run -it --rm --link some-zookeeper:zookeeper 31z4/zookeeper zkCli.sh -server zookeeper
 
+## ... via [`docker-compose`](https://github.com/docker/compose)
+
+Example `docker-compose.yml` for `zookeeper`:
+
+```yaml
+version: '2'
+services:
+    zoo0:
+        image: 31z4/zookeeper
+        restart: always
+        ports:
+            - 2181
+        environment:
+            ZOO_MY_ID: 0
+            ZOO_SERVERS: server.0=zoo0:2888:3888 server.1=zoo1:2888:3888 server.2=zoo2:2888:3888
+
+    zoo1:
+        image: 31z4/zookeeper
+        restart: always
+        ports:
+            - 2181
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_SERVERS: server.0=zoo0:2888:3888 server.1=zoo1:2888:3888 server.2=zoo2:2888:3888
+
+    zoo2:
+        image: 31z4/zookeeper
+        restart: always
+        ports:
+            - 2181
+        environment:
+            ZOO_MY_ID: 2
+            ZOO_SERVERS: server.0=zoo0:2888:3888 server.1=zoo1:2888:3888 server.2=zoo2:2888:3888
+```
+
+This will start Zookeeper in [replicated mode](http://zookeeper.apache.org/doc/current/zookeeperStarted.html#sc_RunningReplicatedZooKeeper). Run `docker-compose up` and wait for it to initialize completely. Run `docker-compose ps` to figure out exposed ports.
+
+> Please be aware that setting up multiple servers on a single machine will not create any redundancy. If something were to happen which caused the machine to die, all of the zookeeper servers would be offline. Full redundancy requires that each server have its own machine. It must be a completely separate physical server. Multiple virtual machines on the same physical host are still vulnerable to the complete failure of that host.
+
+Consider using [Docker Swarm](https://www.docker.com/products/docker-swarm) when running Zookeeper in replicated mode.
+
 ## Configuration
 
-This images uses [sample configuration](https://github.com/apache/zookeeper/blob/release-3.4.8/conf/zoo_sample.cfg) of the Apache Zookeeper which is located in the `/conf` directory. The simplest way to change it is to mount your config file as a volume
+Zookeeper configuration is located in `/conf`. One way to change it is mounting your config file as a volume:
 
-	$ docker run --name some-zookeeper -d -v $(pwd)/zoo.cfg:/conf/zoo.cfg 31z4/zookeeper
+	$ docker run --name some-zookeeper --restart always -d -v $(pwd)/zoo.cfg:/conf/zoo.cfg 31z4/zookeeper
 
 # License
 

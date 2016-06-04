@@ -3,18 +3,19 @@ MAINTAINER Elisey Zanko <elisey.zanko@gmail.com>
 
 # Install required packages
 RUN apk add --no-cache \
-    bash
+    bash \
+    su-exec
 
-ARG ZOOKEEPER_USER=zookeeper
-ARG ZOOKEEPER_CONF_DIR=/conf
-# If you change this then you have to change dataDir in zoo.cfg
-ARG ZOOKEEPER_DATA_DIR=/tmp/zookeeper
+ENV ZOO_USER zookeeper
+ENV ZOO_CONF_DIR /conf
+ENV ZOO_DATA_DIR /data
+ENV ZOO_DATA_LOG_DIR /datalog
 
 # Add a user and make dirs
 RUN set -x \
-    && adduser -D "$ZOOKEEPER_USER" \
-    && mkdir -p "$ZOOKEEPER_DATA_DIR" "$ZOOKEEPER_CONF_DIR" \
-    && chown -R "$ZOOKEEPER_USER:$ZOOKEEPER_USER" "$ZOOKEEPER_DATA_DIR" "$ZOOKEEPER_CONF_DIR"
+    && adduser -D "$ZOO_USER" \
+    && mkdir -p "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" \
+    && chown "$ZOO_USER:$ZOO_USER" "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR"
 
 ARG GPG_KEY=D0BC8D8A4E90A40AFDFC43B3E22A746A68E327C1
 ARG DISTRO_NAME=zookeeper-3.3.6
@@ -29,17 +30,19 @@ RUN set -x \
     && gpg --keyserver ha.pool.sks-keyservers.net --recv-key "$GPG_KEY" \
     && gpg --batch --verify "$DISTRO_NAME.tar.gz.asc" "$DISTRO_NAME.tar.gz" \
     && tar -xzf "$DISTRO_NAME.tar.gz" \
-    && mv "$DISTRO_NAME/conf/zoo_sample.cfg" "$DISTRO_NAME/conf/zoo.cfg" \
-    && mv "$DISTRO_NAME/conf/"* "$ZOOKEEPER_CONF_DIR" \
+    && mv "$DISTRO_NAME/conf/"* "$ZOO_CONF_DIR" \
     && rm -r "$GNUPGHOME" "$DISTRO_NAME.tar.gz" "$DISTRO_NAME.tar.gz.asc" \
     && apk del .build-deps
 
 WORKDIR $DISTRO_NAME
-USER $ZOOKEEPER_USER
+VOLUME ["$ZOO_DATA_DIR", "$ZOO_DATA_LOG_DIR"]
 
-VOLUME ["$ZOOKEEPER_DATA_DIR"]
-EXPOSE 2181
+ENV ZOO_PORT 2181
+EXPOSE $ZOO_PORT
 
 ENV PATH $PATH:/$DISTRO_NAME/bin
-ENV ZOOCFGDIR $ZOOKEEPER_CONF_DIR
+ENV ZOOCFGDIR $ZOO_CONF_DIR
+
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["zkServer.sh", "start-foreground"]
