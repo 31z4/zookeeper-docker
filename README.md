@@ -1,3 +1,5 @@
+This image is proposed to [Docker official images](https://hub.docker.com/explore/). Please send [this PR](https://github.com/docker-library/official-images/pull/1765) some love to make this happen!
+
 # Supported tags and respective `Dockerfile` links
 
 * `3.3.6` [(3.3.6/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.3.6/Dockerfile)
@@ -26,6 +28,12 @@ This image includes `EXPOSE 2181` (the zookeeper port), so standard container li
 ## Connect to Zookeeper from the Zookeeper command line client
 
 	$ docker run -it --rm --link some-zookeeper:zookeeper 31z4/zookeeper zkCli.sh -server zookeeper
+
+## Configuration
+
+This images uses [sample configuration](https://github.com/apache/zookeeper/blob/release-3.4.8/conf/zoo_sample.cfg) of the Apache Zookeeper which is located in the `/conf` directory. The simplest way to change it is to mount your config file as a volume
+
+	$ docker run --name some-zookeeper -d -v $(pwd)/zoo.cfg:/conf/zoo.cfg 31z4/zookeeper
 
 # License
 
