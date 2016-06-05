@@ -21,7 +21,7 @@ fi
 
 # Write myid only if it doesn't exist
 if [ ! -f "$ZOO_DATA_DIR/myid" ]; then
-    echo "${ZOO_MY_ID:-0}" > "$ZOO_DATA_DIR/myid"
+    echo "${ZOO_MY_ID:-1}" > "$ZOO_DATA_DIR/myid"
 fi
 
 # Allow the container to be started with `--user`

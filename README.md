@@ -36,15 +36,6 @@ Example `docker-compose.yml` for `zookeeper`:
 ```yaml
 version: '2'
 services:
-    zoo0:
-        image: 31z4/zookeeper
-        restart: always
-        ports:
-            - 2181
-        environment:
-            ZOO_MY_ID: 0
-            ZOO_SERVERS: server.0=zoo0:2888:3888 server.1=zoo1:2888:3888 server.2=zoo2:2888:3888
-
     zoo1:
         image: 31z4/zookeeper
         restart: always
@@ -52,7 +43,7 @@ services:
             - 2181
         environment:
             ZOO_MY_ID: 1
-            ZOO_SERVERS: server.0=zoo0:2888:3888 server.1=zoo1:2888:3888 server.2=zoo2:2888:3888
+            ZOO_SERVERS: server.1=zoo0:2888:3888 server.2=zoo1:2888:3888 server.3=zoo2:2888:3888
 
     zoo2:
         image: 31z4/zookeeper
@@ -61,7 +52,16 @@ services:
             - 2181
         environment:
             ZOO_MY_ID: 2
-            ZOO_SERVERS: server.0=zoo0:2888:3888 server.1=zoo1:2888:3888 server.2=zoo2:2888:3888
+            ZOO_SERVERS: server.1=zoo0:2888:3888 server.2=zoo1:2888:3888 server.3=zoo2:2888:3888
+
+    zoo3:
+        image: 31z4/zookeeper
+        restart: always
+        ports:
+            - 2181
+        environment:
+            ZOO_MY_ID: 3
+            ZOO_SERVERS: server.1=zoo0:2888:3888 server.2=zoo1:2888:3888 server.3=zoo2:2888:3888
 ```
 
 This will start Zookeeper in [replicated mode](http://zookeeper.apache.org/doc/current/zookeeperStarted.html#sc_RunningReplicatedZooKeeper). Run `docker-compose up` and wait for it to initialize completely. Run `docker-compose ps` to figure out exposed ports.
@@ -75,6 +75,24 @@ Consider using [Docker Swarm](https://www.docker.com/products/docker-swarm) when
 Zookeeper configuration is located in `/conf`. One way to change it is mounting your config file as a volume:
 
 	$ docker run --name some-zookeeper --restart always -d -v $(pwd)/zoo.cfg:/conf/zoo.cfg 31z4/zookeeper
+
+## Environment variables
+
+Variables below are mandatory if you want to run Zookeeper in replicated mode.
+
+### `ZOO_MY_ID`
+
+The id must be unique within the ensemble and should have a value between 1 and 255. Do note that this variable will not have any effect if you start the container with a `/data` directory that already contains the `myid` file.
+
+### `ZOO_SERVERS`
+
+This variable allows you to specify a list of machines of the Zookeeper ensemble. Each entry has the form of `server.id=host:port:port`. Entries are separated with space. Do note that this variable will not have any effect if you start the container with a `/conf` directory that already contains the `zoo.cfg` file.
+
+## Where to store data
+
+This image is configured with volumes at `/data` and `/datalog` to hold the Zookeeper in-memory database snapshots and the transaction log of updates to the database, respectively.
+
+> Be careful where you put the transaction log. A dedicated transaction log device is key to consistent good performance. Putting the log on a busy device will adversely effect performance.
 
 # License
 
