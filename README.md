@@ -43,7 +43,7 @@ services:
             - 2181
         environment:
             ZOO_MY_ID: 1
-            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo1:2888:3888 server.3=zoo2:2888:3888
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
 
     zoo2:
         image: 31z4/zookeeper
@@ -52,7 +52,7 @@ services:
             - 2181
         environment:
             ZOO_MY_ID: 2
-            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo1:2888:3888 server.3=zoo2:2888:3888
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
 
     zoo3:
         image: 31z4/zookeeper
@@ -61,7 +61,7 @@ services:
             - 2181
         environment:
             ZOO_MY_ID: 3
-            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo1:2888:3888 server.3=zoo2:2888:3888
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
 ```
 
 This will start Zookeeper in [replicated mode](http://zookeeper.apache.org/doc/current/zookeeperStarted.html#sc_RunningReplicatedZooKeeper). Run `docker-compose up` and wait for it to initialize completely. Run `docker-compose ps` to figure out exposed ports.
