@@ -1,4 +1,4 @@
-FROM java:8-jre-alpine
+FROM openjdk:8-jre-alpine
 MAINTAINER Elisey Zanko <elisey.zanko@gmail.com>
 
 # Install required packages
