@@ -2,10 +2,10 @@ This image is proposed to [Docker official images](https://hub.docker.com/explor
 
 # Supported tags and respective `Dockerfile` links
 
-* `3.3.6` [(3.3.6/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.3.6/Dockerfile)
-* `3.4.8`, `latest` [(3.4.8/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.8/Dockerfile)
+* `3.3.6`, `3.3` [(3.3.6/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.3.6/Dockerfile)
+* `3.4.9`, `3.4`, `latest` [(3.4.9/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.9/Dockerfile)
 
-[![](https://badge.imagelayers.io/31z4/storm:latest.svg)](https://imagelayers.io/?images=31z4%2Fzookeeper:3.4.8,31z4%2Fzookeeper:3.3.6)
+[![](https://images.microbadger.com/badges/image/31z4/zookeeper.svg)](http://microbadger.com/images/31z4/zookeeper)
 
 # What is Apache Zookeeper?
 
@@ -96,4 +96,4 @@ This image is configured with volumes at `/data` and `/datalog` to hold the Zook
 
 # License
 
-View [license information](https://github.com/apache/zookeeper/blob/release-3.4.8/LICENSE.txt) for the software contained in this image.
+View [license information](https://github.com/apache/zookeeper/blob/release-3.4.9/LICENSE.txt) for the software contained in this image.

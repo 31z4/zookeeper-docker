@@ -17,15 +17,15 @@ RUN set -x \
     && mkdir -p "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" \
     && chown "$ZOO_USER:$ZOO_USER" "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR"
 
-ARG GPG_KEY=2A4A8024702DD5FC061ABCD8BE3B6B9392BC2F2B
-ARG DISTRO_NAME=zookeeper-3.4.8
+ARG GPG_KEY=C823E3E5B12AF29C67F81976F5CECB3CB5E9BD2D
+ARG DISTRO_NAME=zookeeper-3.4.9
 
 # Download Apache Zookeeper, verify its PGP signature, untar and clean up
 RUN set -x \
     && apk add --no-cache --virtual .build-deps \
         gnupg \
-    && wget -q "http://www-eu.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz" \
-    && wget -q "http://www.us.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz.asc" \
+    && wget -q "http://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz" \
+    && wget -q "http://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz.asc" \
     && export GNUPGHOME="$(mktemp -d)" \
     && gpg --keyserver ha.pool.sks-keyservers.net --recv-key "$GPG_KEY" \
     && gpg --batch --verify "$DISTRO_NAME.tar.gz.asc" "$DISTRO_NAME.tar.gz" \
