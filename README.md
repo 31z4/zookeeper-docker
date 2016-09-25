@@ -1,5 +1,3 @@
-This image is proposed to [Docker official images](https://hub.docker.com/explore/). Please send [this PR](https://github.com/docker-library/official-images/pull/1765) some love to make this happen!
-
 # Supported tags and respective `Dockerfile` links
 
 * `3.3.6`, `3.3` [(3.3.6/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.3.6/Dockerfile)
