@@ -6,10 +6,14 @@ RUN apk add --no-cache \
     bash \
     su-exec
 
-ENV ZOO_USER zookeeper
-ENV ZOO_CONF_DIR /conf
-ENV ZOO_DATA_DIR /data
-ENV ZOO_DATA_LOG_DIR /datalog
+ENV ZOO_USER=zookeeper \
+    ZOO_CONF_DIR=/conf \
+    ZOO_DATA_DIR=/data \
+    ZOO_DATA_LOG_DIR=/datalog \
+    ZOO_PORT=2181 \
+    ZOO_TICK_TIME=2000 \
+    ZOO_INIT_LIMIT=5 \
+    ZOO_SYNC_LIMIT=2
 
 # Add a user and make dirs
 RUN set -x \
@@ -35,13 +39,11 @@ RUN set -x \
     && apk del .build-deps
 
 WORKDIR $DISTRO_NAME
-VOLUME ["$ZOO_DATA_DIR", "$ZOO_DATA_LOG_DIR"]
+VOLUME ["$ZOO_DATA_DIR", "$ZOO_DATA_LOG_DIR", "$ZOO_CONF_DIR"]
 
-ENV ZOO_PORT 2181
 EXPOSE $ZOO_PORT 2888 3888
-
-ENV PATH $PATH:/$DISTRO_NAME/bin
-ENV ZOOCFGDIR $ZOO_CONF_DIR
+ENV PATH=$PATH:/$DISTRO_NAME/bin \
+    ZOOCFGDIR=$ZOO_CONF_DIR
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
