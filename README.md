@@ -76,18 +76,6 @@ Zookeeper configuration is located in `/conf`. One way to change it is mounting 
 
 ## Environment variables
 
-Variables below are mandatory if you want to run Zookeeper in replicated mode.
-
-### `ZOO_MY_ID`
-
-The id must be unique within the ensemble and should have a value between 1 and 255. Do note that this variable will not have any effect if you start the container with a `/data` directory that already contains the `myid` file.
-
-### `ZOO_SERVERS`
-
-This variable allows you to specify a list of machines of the Zookeeper ensemble. Each entry has the form of `server.id=host:port:port`. Entries are separated with space. Do note that this variable will not have any effect if you start the container with a `/conf` directory that already contains the `zoo.cfg` file.
-
-## Environment variables (optional)
-
 ZooKeeper recommended defaults are used if `zoo.cfg` file is not provided. They can be overridden using the following environment variables.
 
     $ docker run -e "ZOO_INIT_LIMIT=10" --name some-zookeeper --restart always -d 31z4/zookeeper
@@ -109,6 +97,18 @@ Defaults to `5`. ZooKeeper's `initLimit`
 Defaults to `2`. ZooKeeper's `syncLimit`
 
 > Amount of time, in ticks (see tickTime), to allow followers to sync with ZooKeeper. If followers fall too far behind a leader, they will be dropped.
+
+## Replicated mode
+
+Environment variables below are mandatory if you want to run Zookeeper in replicated mode.
+
+### `ZOO_MY_ID`
+
+The id must be unique within the ensemble and should have a value between 1 and 255. Do note that this variable will not have any effect if you start the container with a `/data` directory that already contains the `myid` file.
+
+### `ZOO_SERVERS`
+
+This variable allows you to specify a list of machines of the Zookeeper ensemble. Each entry has the form of `server.id=host:port:port`. Entries are separated with space. Do note that this variable will not have any effect if you start the container with a `/conf` directory that already contains the `zoo.cfg` file.
 
 ## Where to store data
 
