@@ -100,13 +100,13 @@ Defaults to `2000`. ZooKeeper's `tickTime`
 
 ### `ZOO_INIT_LIMIT`
 
-Defaults to `5`
+Defaults to `5`. ZooKeeper's `initLimit`
 
 > Amount of time, in ticks (see tickTime), to allow followers to connect and sync to a leader. Increased this value as needed, if the amount of data managed by ZooKeeper is large.
 
 ### `ZOO_SYNC_LIMIT`
 
-Defaults to `2`
+Defaults to `2`. ZooKeeper's `syncLimit`
 
 > Amount of time, in ticks (see tickTime), to allow followers to sync with ZooKeeper. If followers fall too far behind a leader, they will be dropped.
 
