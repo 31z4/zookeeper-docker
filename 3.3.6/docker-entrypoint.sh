@@ -16,9 +16,9 @@ if [ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]; then
     echo "dataDir=$ZOO_DATA_DIR" >> "$CONFIG"
     echo "dataLogDir=$ZOO_DATA_LOG_DIR" >> "$CONFIG"
 
-    echo 'tickTime=2000' >> "$CONFIG"
-    echo 'initLimit=5' >> "$CONFIG"
-    echo 'syncLimit=2' >> "$CONFIG"
+    echo "tickTime=$ZOO_TICK_TIME" >> "$CONFIG"
+    echo "initLimit=$ZOO_INIT_LIMIT" >> "$CONFIG"
+    echo "syncLimit=$ZOO_SYNC_LIMIT" >> "$CONFIG"
 
     for server in $ZOO_SERVERS; do
         echo "$server" >> "$CONFIG"
