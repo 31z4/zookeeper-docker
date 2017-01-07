@@ -38,7 +38,7 @@ services:
         image: 31z4/zookeeper
         restart: always
         ports:
-            - 2181
+            - 2181:2181
         environment:
             ZOO_MY_ID: 1
             ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
@@ -47,7 +47,7 @@ services:
         image: 31z4/zookeeper
         restart: always
         ports:
-            - 2181
+            - 2182:2181
         environment:
             ZOO_MY_ID: 2
             ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
@@ -56,13 +56,13 @@ services:
         image: 31z4/zookeeper
         restart: always
         ports:
-            - 2181
+            - 2183:2181
         environment:
             ZOO_MY_ID: 3
             ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
 ```
 
-This will start Zookeeper in [replicated mode](http://zookeeper.apache.org/doc/current/zookeeperStarted.html#sc_RunningReplicatedZooKeeper). Run `docker-compose up` and wait for it to initialize completely. Run `docker-compose ps` to figure out exposed ports.
+This will start Zookeeper in [replicated mode](http://zookeeper.apache.org/doc/current/zookeeperStarted.html#sc_RunningReplicatedZooKeeper). Run `docker-compose up` and wait for it to initialize completely. Ports `2181-2183` will be exposed.
 
 > Please be aware that setting up multiple servers on a single machine will not create any redundancy. If something were to happen which caused the machine to die, all of the zookeeper servers would be offline. Full redundancy requires that each server have its own machine. It must be a completely separate physical server. Multiple virtual machines on the same physical host are still vulnerable to the complete failure of that host.
 
