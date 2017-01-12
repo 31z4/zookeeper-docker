@@ -21,7 +21,7 @@ if [ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]; then
     echo "syncLimit=$ZOO_SYNC_LIMIT" >> "$CONFIG"
 
     echo "autopurge.snapRetainCount=$ZOO_AUTOPURGE_SNAP_RETAIN_COUNT" >> "$CONFIG"
-    echo "autopurge.purgeInterval"=$ZOO_AUTOPURGE_PURGE_INTERVAL" >> "$CONFIG"
+    echo "autopurge.purgeInterval=$ZOO_AUTOPURGE_PURGE_INTERVAL" >> "$CONFIG"
 
     for server in $ZOO_SERVERS; do
         echo "$server" >> "$CONFIG"
