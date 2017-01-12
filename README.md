@@ -98,6 +98,19 @@ Defaults to `2`. ZooKeeper's `syncLimit`
 
 > Amount of time, in ticks (see tickTime), to allow followers to sync with ZooKeeper. If followers fall too far behind a leader, they will be dropped.
 
+### `ZOO_AUTOPURGE_SNAP_RETAIN_COUNT`
+
+Defaults to `3`. ZooKeeper's `autopurge.snapRetainCount`
+
+> When enabled, ZooKeeper auto purge feature retains the autopurge.snapRetainCount most recent snapshots and the corresponding transaction logs in the dataDir and dataLogDir respectively and deletes the rest. Defaults to 3. Minimum value is 3.
+
+### `ZOO_AUTOPURGE_PURGE_INTERVAL`
+
+Defaults to `0`. ZooKeeper's `autopurge.purgeInterval`
+
+>  The time interval in hours for which the purge task has to be triggered. Set to a positive integer (1 and above) to enable the auto purging. Defaults to 0.
+
+
 ## Replicated mode
 
 Environment variables below are mandatory if you want to run Zookeeper in replicated mode.

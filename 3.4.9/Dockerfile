@@ -13,7 +13,9 @@ ENV ZOO_USER=zookeeper \
     ZOO_PORT=2181 \
     ZOO_TICK_TIME=2000 \
     ZOO_INIT_LIMIT=5 \
-    ZOO_SYNC_LIMIT=2
+    ZOO_SYNC_LIMIT=2 \
+    ZOO_AUTOPURGE_SNAP_RETAIN_COUNT=3 \
+    ZOO_AUTOPURGE_PURGE_INTERVAL=0
 
 # Add a user and make dirs
 RUN set -x \
