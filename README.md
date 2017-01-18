@@ -98,6 +98,25 @@ Defaults to `2`. ZooKeeper's `syncLimit`
 
 > Amount of time, in ticks (see tickTime), to allow followers to sync with ZooKeeper. If followers fall too far behind a leader, they will be dropped.
 
+### `ZOO_MAX_CLIENT_CNXNS`
+
+Defaults to `60`. ZooKeeper's `maxClientCnxns`
+
+> The maximum number of client connections (since version 3.4.6).
+
+### `ZOO_AUTOPURGE_SANPRETAINCOUNT`
+
+Defaults to `3`. ZooKeeper's `autopurge.snapRetainCount`
+
+> The number of snapshots to retain in dataDir (since version 3.4.0).
+
+### `ZOO_AUTOPURGE_PURGEINTERVAL`
+
+Defaults to `1`. ZooKeeper's `autopurge.purgeInterval`
+
+> Set to "0" to disable auto purge feature (since version 3.4.0).
+
+
 ## Replicated mode
 
 Environment variables below are mandatory if you want to run Zookeeper in replicated mode.
