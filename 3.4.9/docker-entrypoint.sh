@@ -20,6 +20,10 @@ if [ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]; then
     echo "initLimit=$ZOO_INIT_LIMIT" >> "$CONFIG"
     echo "syncLimit=$ZOO_SYNC_LIMIT" >> "$CONFIG"
 
+    echo "maxClientCnxns=$ZOO_MAX_CLIENT_CNXNS" >> "$CONFIG"
+    echo "autopurge.snapRetainCount=$ZOO_AUTOPURGE_SANPRETAINCOUNT" >> "$CONFIG"
+    echo "autopurge.purgeInterval=$ZOO_AUTOPURGE_PURGEINTERVAL" >> "$CONFIG"
+
     for server in $ZOO_SERVERS; do
         echo "$server" >> "$CONFIG"
     done
