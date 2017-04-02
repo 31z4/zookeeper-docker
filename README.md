@@ -1,7 +1,7 @@
 # Supported tags and respective `Dockerfile` links
 
 * `3.3.6`, `3.3` [(3.3.6/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.3.6/Dockerfile)
-* `3.4.9`, `3.4`, `latest` [(3.4.9/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.9/Dockerfile)
+* `3.4.10`, `3.4`, `latest` [(3.4.10/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.10/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/31z4/zookeeper.svg)](http://microbadger.com/images/31z4/zookeeper)
 
@@ -118,4 +118,4 @@ This image is configured with volumes at `/data` and `/datalog` to hold the Zook
 
 # License
 
-View [license information](https://github.com/apache/zookeeper/blob/release-3.4.9/LICENSE.txt) for the software contained in this image.
+View [license information](https://github.com/apache/zookeeper/blob/release-3.4.10/LICENSE.txt) for the software contained in this image.
