@@ -13,7 +13,8 @@ ENV ZOO_USER=zookeeper \
     ZOO_PORT=2181 \
     ZOO_TICK_TIME=2000 \
     ZOO_INIT_LIMIT=5 \
-    ZOO_SYNC_LIMIT=2
+    ZOO_SYNC_LIMIT=2 \
+    ZOO_MAX_CLIENT_CNXNS=60
 
 # Add a user and make dirs
 RUN set -x \
@@ -35,7 +36,7 @@ RUN set -x \
     && gpg --batch --verify "$DISTRO_NAME.tar.gz.asc" "$DISTRO_NAME.tar.gz" \
     && tar -xzf "$DISTRO_NAME.tar.gz" \
     && mv "$DISTRO_NAME/conf/"* "$ZOO_CONF_DIR" \
-    && rm -r "$GNUPGHOME" "$DISTRO_NAME.tar.gz" "$DISTRO_NAME.tar.gz.asc" \
+    && rm -rf "$GNUPGHOME" "$DISTRO_NAME.tar.gz" "$DISTRO_NAME.tar.gz.asc" \
     && apk del .build-deps
 
 WORKDIR $DISTRO_NAME
