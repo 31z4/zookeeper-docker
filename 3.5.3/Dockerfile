@@ -1,6 +1,4 @@
 FROM openjdk:8-jre-alpine
-MAINTAINER Elisey Zanko <elisey.zanko@gmail.com>
-
 
 # Install required packages
 RUN apk add --no-cache \
@@ -33,29 +31,12 @@ RUN set -ex; \
     wget -q "http://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz.asc"; \
     wget -q "http://www.apache.org/dist/zookeeper/KEYS"; \
     export GNUPGHOME="$(mktemp -d)"; \
-    gpg --import KEYS ; \
+    gpg --import KEYS; \
     gpg --batch --verify "$DISTRO_NAME.tar.gz.asc" "$DISTRO_NAME.tar.gz"; \
     # TODO: the distribution given by apache is not gzipped correctly - unzip correctly when fixed
     tar -xf "$DISTRO_NAME.tar.gz"; \
     mv "$DISTRO_NAME/conf/"* "$ZOO_CONF_DIR"; \
     rm -rf "$GNUPGHOME" "$DISTRO_NAME.tar.gz" "$DISTRO_NAME.tar.gz.asc"; \
-    rm -rf "/$DISTRO_NAME/CHANGES.txt" \
-      "$DISTRO_NAME/README.txt" \
-      "$DISTRO_NAME/NOTICE.txt" \
-      "$DISTRO_NAME/CHANGES.txt" \
-      "$DISTRO_NAME/README_packaging.txt" \
-      "$DISTRO_NAME/build.xml" \
-      "$DISTRO_NAME/config" \
-      "$DISTRO_NAME/contrib" \
-      "$DISTRO_NAME/dist-maven" \
-      "$DISTRO_NAME/docs" \
-      "$DISTRO_NAME/ivy.xml" \
-      "$DISTRO_NAME/ivysettings.xml" \
-      "$DISTRO_NAME/recipes" \
-      "$DISTRO_NAME/src" \
-      "$DISTRO_NAME/$DISTRO_NAME.jar.asc" \
-      "$DISTRO_NAME/$DISTRO_NAME.jar.md5" \
-      "$DISTRO_NAME/$DISTRO_NAME.jar.sha1";\
     apk del .build-deps; \
     chown -R "$ZOO_USER:$ZOO_USER" "/$DISTRO_NAME"
 
