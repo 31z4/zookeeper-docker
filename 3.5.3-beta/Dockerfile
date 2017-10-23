@@ -13,7 +13,8 @@ ENV ZOO_USER=zookeeper \
     ZOO_TICK_TIME=2000 \
     ZOO_INIT_LIMIT=5 \
     ZOO_SYNC_LIMIT=2 \
-    ZOO_MAX_CLIENT_CNXNS=60
+    ZOO_MAX_CLIENT_CNXNS=60 \
+    ZOO_STANDALONE_ENABLED=false
 
 # Add a user and make dirs
 RUN set -ex; \

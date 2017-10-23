@@ -2,7 +2,7 @@
 
 * `3.3.6`, `3.3` [(3.3.6/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.3.6/Dockerfile)
 * `3.4.10`, `3.4`, `latest` [(3.4.10/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.10/Dockerfile)
-* `3.5.3-beta`, `3.5` [(3.5.3/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.5.3/Dockerfile)
+* `3.5.3-beta`, `3.5` [(3.5.3-beta/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.5.3-beta/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/31z4/zookeeper.svg)](http://microbadger.com/images/31z4/zookeeper)
 
@@ -108,6 +108,12 @@ Defaults to `2`. ZooKeeper's `syncLimit`
 Defaults to `60`. ZooKeeper's `maxClientCnxns`
 
 > Limits the number of concurrent connections (at the socket level) that a single client, identified by IP address, may make to a single member of the ZooKeeper ensemble.
+
+### `ZOO_STANDALONE_ENABLED`
+
+Defaults to `false`. Zookeeper's [`standaloneEnabled`](http://zookeeper.apache.org/doc/trunk/zookeeperReconfig.html#sc_reconfig_standaloneEnabled)
+
+> Prior to 3.5.0, one could run ZooKeeper in Standalone mode or in a Distributed mode. These are separate implementation stacks, and switching between them during run time is not possible. By default (for backward compatibility) standaloneEnabled is set to true. The consequence of using this default is that if started with a single server the ensemble will not be allowed to grow, and if started with more than one server it will not be allowed to shrink to contain fewer than two participants.
 
 ## Replicated mode
 

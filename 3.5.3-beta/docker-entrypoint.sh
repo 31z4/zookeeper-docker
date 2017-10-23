@@ -20,6 +20,11 @@ if [ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]; then
     echo "syncLimit=$ZOO_SYNC_LIMIT" >> "$CONFIG"
 
     echo "maxClientCnxns=$ZOO_MAX_CLIENT_CNXNS" >> "$CONFIG"
+    echo "standaloneEnabled=$ZOO_STANDALONE_ENABLED" >> "$CONFIG"
+
+    if [ -z $ZOO_SERVERS ]; then
+      ZOO_SERVERS="server.1=localhost:2888:3888;$ZOO_PORT"
+    fi
 
     for server in $ZOO_SERVERS; do
         echo "$server" >> "$CONFIG"
@@ -32,4 +37,3 @@ if [ ! -f "$ZOO_DATA_DIR/myid" ]; then
 fi
 
 exec "$@"
-
