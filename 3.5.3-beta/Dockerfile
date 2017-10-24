@@ -28,9 +28,9 @@ ARG DISTRO_NAME=zookeeper-3.5.3-beta
 # Download Apache Zookeeper, verify its PGP signature, untar and clean up
 RUN set -ex; \
     apk add --no-cache --virtual .build-deps \
-        gnupg; \
-    wget -q "http://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz"; \
-    wget -q "http://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz.asc"; \
+        gnupg openssl ca-certificates && update-ca-certificates; \
+    wget -q "https://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz"; \
+    wget -q "https://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz.asc"; \
     export GNUPGHOME="$(mktemp -d)"; \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-key "$GPG_KEY" || \
     gpg --keyserver pgp.mit.edu --recv-keys "$GPG_KEY" || \
