@@ -4,7 +4,7 @@ set -e
 
 # Allow the container to be started with `--user`
 if [ "$1" = 'zkServer.sh' -a "$(id -u)" = '0' ]; then
-    chown -R "$ZOO_USER" "$ZOO_DATA_DIR" "$ZOO_DATA_LOG_DIR"
+    chown -R "$ZOO_USER" "$ZOO_DATA_DIR" "$ZOO_DATA_LOG_DIR" "$ZOO_LOG_DIR"
     exec su-exec "$ZOO_USER" "$0" "$@"
 fi
 
@@ -23,12 +23,12 @@ if [ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]; then
     echo "standaloneEnabled=$ZOO_STANDALONE_ENABLED" >> "$CONFIG"
 
     if [ -z $ZOO_SERVERS ]; then
-      ZOO_SERVERS="server.1=localhost:2888:3888;$ZOO_PORT"
+      echo "ZOO_SERVERS=\"server.1=localhost:2888:3888;$ZOO_PORT\""
+    else
+      for server in $ZOO_SERVERS; do
+          echo "$server" >> "$CONFIG"
+      done
     fi
-
-    for server in $ZOO_SERVERS; do
-        echo "$server" >> "$CONFIG"
-    done
 fi
 
 # Write myid only if it doesn't exist

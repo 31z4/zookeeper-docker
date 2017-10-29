@@ -9,6 +9,7 @@ ENV ZOO_USER=zookeeper \
     ZOO_CONF_DIR=/conf \
     ZOO_DATA_DIR=/data \
     ZOO_DATA_LOG_DIR=/datalog \
+    ZOO_LOG_DIR=/logs \
     ZOO_PORT=2181 \
     ZOO_TICK_TIME=2000 \
     ZOO_INIT_LIMIT=5 \
@@ -18,9 +19,9 @@ ENV ZOO_USER=zookeeper \
 
 # Add a user and make dirs
 RUN set -ex; \
-    adduser -D "$ZOO_USER"; \
-    mkdir -p "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR"; \
-    chown "$ZOO_USER:$ZOO_USER" "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR"
+    adduser -D -u 9001 "$ZOO_USER"; \
+    mkdir -p "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" "$ZOO_LOG_DIR"; \
+    chown "$ZOO_USER:$ZOO_USER" "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" "$ZOO_LOG_DIR"
 
 ARG GPG_KEY=C61B346552DC5E0CB53AA84F59147497767E7473
 ARG DISTRO_NAME=zookeeper-3.5.3-beta
@@ -46,7 +47,7 @@ RUN set -ex; \
     chown -R "$ZOO_USER:$ZOO_USER" "/$DISTRO_NAME"
 
 WORKDIR $DISTRO_NAME
-VOLUME ["$ZOO_DATA_DIR", "$ZOO_DATA_LOG_DIR"]
+VOLUME ["$ZOO_DATA_DIR", "$ZOO_DATA_LOG_DIR", "$ZOO_LOG_DIR"]
 
 EXPOSE $ZOO_PORT 2888 3888
 
