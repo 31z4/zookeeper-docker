@@ -23,7 +23,7 @@ if [ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]; then
     echo "standaloneEnabled=$ZOO_STANDALONE_ENABLED" >> "$CONFIG"
 
     if [ -z $ZOO_SERVERS ]; then
-      echo "ZOO_SERVERS=\"server.1=localhost:2888:3888;$ZOO_PORT\""
+      echo "server.1=localhost:2888:3888;$ZOO_PORT"
     else
       for server in $ZOO_SERVERS; do
           echo "$server" >> "$CONFIG"
