@@ -1,5 +1,4 @@
 FROM openjdk:8-jre-alpine
-MAINTAINER Elisey Zanko <elisey.zanko@gmail.com>
 
 # Install required packages
 RUN apk add --no-cache \
