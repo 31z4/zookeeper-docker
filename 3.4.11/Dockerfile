@@ -8,7 +8,7 @@ RUN apk add --no-cache \
 ENV ZOO_USER=zookeeper \
     ZOO_CONF_DIR=/conf \
     ZOO_DATA_DIR=/data \
-    ZOO_DATA_LOG_DIR=/datalog \
+    ZOO_LOG_DIR=/datalog \
     ZOO_PORT=2181 \
     ZOO_TICK_TIME=2000 \
     ZOO_INIT_LIMIT=5 \
@@ -18,8 +18,8 @@ ENV ZOO_USER=zookeeper \
 # Add a user and make dirs
 RUN set -ex; \
     adduser -D "$ZOO_USER"; \
-    mkdir -p "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR"; \
-    chown "$ZOO_USER:$ZOO_USER" "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR"
+    mkdir -p "$ZOO_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR"; \
+    chown "$ZOO_USER:$ZOO_USER" "$ZOO_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR"
 
 ARG GPG_KEY=D0BC8D8A4E90A40AFDFC43B3E22A746A68E327C1
 ARG DISTRO_NAME=zookeeper-3.4.11
@@ -43,7 +43,7 @@ RUN set -ex; \
     apk del .build-deps
 
 WORKDIR $DISTRO_NAME
-VOLUME ["$ZOO_DATA_DIR", "$ZOO_DATA_LOG_DIR"]
+VOLUME ["$ZOO_DATA_DIR", "$ZOO_LOG_DIR"]
 
 EXPOSE $ZOO_PORT 2888 3888
 
