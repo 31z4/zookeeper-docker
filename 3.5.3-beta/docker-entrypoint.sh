@@ -21,6 +21,8 @@ if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
 
     echo "maxClientCnxns=$ZOO_MAX_CLIENT_CNXNS" >> "$CONFIG"
     echo "standaloneEnabled=$ZOO_STANDALONE_ENABLED" >> "$CONFIG"
+    echo "autopurge.snapRetainCount=$ZOO_AUTOPURGE_SNAPRETAINCOUNT" >> "$CONFIG"
+    echo "autopurge.purgeInterval=$ZOO_AUTOPURGE_PURGEINTERVAL" >> "$CONFIG"
 
     if [[ -z $ZOO_SERVERS ]]; then
       ZOO_SERVERS="server.1=localhost:2888:3888;$ZOO_PORT"
