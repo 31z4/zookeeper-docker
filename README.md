@@ -2,7 +2,7 @@
 
 * `3.3.6`, `3.3` [(3.3.6/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.3.6/Dockerfile)
 * `3.4.12`, `3.4`, `latest` [(3.4.12/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.12/Dockerfile)
-* `3.5.3-beta`, `3.5` [(3.5.3-beta/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.5.3-beta/Dockerfile)
+* `3.5.4-beta`, `3.5` [(3.5.4-beta/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.5.4-beta/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/31z4/zookeeper.svg)](http://microbadger.com/images/31z4/zookeeper)
 
