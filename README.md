@@ -145,6 +145,16 @@ This image is configured with volumes at `/data` and `/datalog` to hold the Zook
 
 > Be careful where you put the transaction log. A dedicated transaction log device is key to consistent good performance. Putting the log on a busy device will adversely affect performance.
 
+## How to configure logging
+
+This image is configured with volume at `/logs` to hold logging files. By default, ZooKeeper redirects stdout/stderr outputs to the console (zkServer start-foreground) or file `/logs/zookeeper*.out` (zkServer start), and Log4j redirects to stdout/stderr. To separate Log4j logging files, just replace the redirection to `CONSOLE` with `ROLLINGFILE`, by passing environment variable `ZOO_LOG4J_PROP` as follows:
+
+    $ docker run --name some-zookeeper --restart always -d -v -e ZOO_LOG4J_PROP="INFO,ROLLINGFILE" 31z4/zookeeper
+
+This will allow ZooKeeper output logs to `/logs/zookeeper.log` with rotation enabled if configured.
+
+> Check [ZooKeeper Outputs](https://github.com/apache/zookeeper/blob/release-3.4.13/bin/zkServer.sh#L141) and [log4j.properties](https://github.com/apache/zookeeper/blob/release-3.4.13/conf/log4j.properties) for more details.
+
 # License
 
 View [license information](https://github.com/apache/zookeeper/blob/release-3.4.13/LICENSE.txt) for the software contained in this image.
