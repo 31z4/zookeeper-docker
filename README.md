@@ -147,13 +147,13 @@ This image is configured with volumes at `/data` and `/datalog` to hold the Zook
 
 ## How to configure logging
 
-This image is configured with volume at `/logs` to hold logging files. By default, ZooKeeper redirects stdout/stderr outputs to the console (zkServer start-foreground) or file `/logs/zookeeper*.out` (zkServer start), and Log4j redirects to stdout/stderr. To separate Log4j logging files, just replace the redirection to `CONSOLE` with `ROLLINGFILE`, by passing environment variable `ZOO_LOG4J_PROP` as follows:
+By default, ZooKeeper redirects stdout/stderr outputs to the console. You can redirect to a file located in /logs by passing environment variable ZOO_LOG4J_PROP as follows:
 
     $ docker run --name some-zookeeper --restart always -d -v -e ZOO_LOG4J_PROP="INFO,ROLLINGFILE" 31z4/zookeeper
 
-This will allow ZooKeeper output logs to `/logs/zookeeper.log` with rotation enabled if configured.
+> This will write logs to `/logs/zookeeper.log`. Check [ZooKeeper Outputs](https://github.com/apache/zookeeper/blob/release-3.4.13/bin/zkServer.sh#L141) and [log4j.properties](https://github.com/apache/zookeeper/blob/release-3.4.13/conf/log4j.properties) for more details.
 
-> Check [ZooKeeper Outputs](https://github.com/apache/zookeeper/blob/release-3.4.13/bin/zkServer.sh#L141) and [log4j.properties](https://github.com/apache/zookeeper/blob/release-3.4.13/conf/log4j.properties) for more details.
+This image is configured with a volume at /logs for your convenience.
 
 # License
 
