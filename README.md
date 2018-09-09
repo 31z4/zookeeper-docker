@@ -151,7 +151,7 @@ By default, ZooKeeper redirects stdout/stderr outputs to the console. You can re
 
     $ docker run --name some-zookeeper --restart always -e ZOO_LOG4J_PROP="INFO,ROLLINGFILE" 31z4/zookeeper
 
-> This will write logs to `/logs/zookeeper.log`. Check [ZooKeeper Logging](http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_logging) for more details.
+This will write logs to `/logs/zookeeper.log`. Check [ZooKeeper Logging](http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_logging) for more details.
 
 This image is configured with a volume at `/logs` for your convenience.
 
