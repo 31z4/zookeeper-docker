@@ -41,8 +41,8 @@ services:
         hostname: zoo1
         ports:
             - 2181:2181
-	    - 2888:2888
-	    - 3888:3888
+            - 2888:2888
+            - 3888:3888
         environment:
             ZOO_MY_ID: 1
             ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2889:3889 server.3=zoo3:2890:3890
@@ -53,8 +53,8 @@ services:
         hostname: zoo2
         ports:
             - 2182:2181
-	    - 2889:2888
-	    - 3889:3888
+            - 2889:2888
+            - 3889:3888
         environment:
             ZOO_MY_ID: 2
             ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2889:3889 server.3=zoo3:2890:3890
@@ -65,8 +65,8 @@ services:
         hostname: zoo3
         ports:
             - 2183:2181
-	    - 2890:2888
-	    - 3890:3888
+            - 2890:2888
+            - 3890:3888
         environment:
             ZOO_MY_ID: 3
             ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2889:3889 server.3=0.0.0.0:2890:3890
