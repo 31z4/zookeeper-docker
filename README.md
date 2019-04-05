@@ -1,6 +1,6 @@
 # Supported tags and respective `Dockerfile` links
 
-* `3.4.13`, `3.4`, `latest` [(3.4.13/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.13/Dockerfile)
+* `3.4.14`, `3.4`, `latest` [(3.4.14/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.14/Dockerfile)
 * `3.5.4-beta`, `3.5` [(3.5.4-beta/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.5.4-beta/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/31z4/zookeeper.svg)](http://microbadger.com/images/31z4/zookeeper)
@@ -157,4 +157,4 @@ This image is configured with a volume at `/logs` for your convenience.
 
 # License
 
-View [license information](https://github.com/apache/zookeeper/blob/release-3.4.13/LICENSE.txt) for the software contained in this image.
+View [license information](https://github.com/apache/zookeeper/blob/release-3.4.14/LICENSE.txt) for the software contained in this image.
