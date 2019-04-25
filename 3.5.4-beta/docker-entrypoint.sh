@@ -3,7 +3,7 @@
 set -e
 
 # Allow the container to be started with `--user`
-if [[ "$1" = 'zkServer.sh' && "$(id -u)" = '0' ]]; then
+if [[ "$1" = 'zkServer.sh' && "$(id -u)" = '0' && "$ZOO_USER" != 'root' ]]; then
     chown -R "$ZOO_USER" "$ZOO_DATA_DIR" "$ZOO_DATA_LOG_DIR" "$ZOO_LOG_DIR" "$ZOO_CONF_DIR"
     exec su-exec "$ZOO_USER" "$0" "$@"
 fi
