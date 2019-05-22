@@ -1,7 +1,7 @@
 # Supported tags and respective `Dockerfile` links
 
-* `3.4.14`, `3.4`, `latest` [(3.4.14/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.14/Dockerfile)
-* `3.5.4-beta`, `3.5` [(3.5.4-beta/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.5.4-beta/Dockerfile)
+* `3.4.14`, `3.4` [(3.4.14/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.14/Dockerfile)
+* `3.5.5`, `3.5`, `latest` [(3.5.5/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.5.5/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/31z4/zookeeper.svg)](http://microbadger.com/images/31z4/zookeeper)
 
