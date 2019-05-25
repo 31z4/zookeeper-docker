@@ -1,9 +1,18 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:8-jre-slim
 
-# Install required packages
-RUN apk add --no-cache \
-    bash \
-    su-exec
+# Install required packges
+RUN set -eux; \
+    apt-get update; \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
+        ca-certificates \
+        dirmngr \
+        gosu \
+        gnupg \
+        wget; \
+    rm -rf /var/lib/apt/lists/*; \
+# Verify that gosu binary works
+    gosu nobody true
 
 ENV ZOO_USER=zookeeper \
     ZOO_CONF_DIR=/conf \
@@ -19,8 +28,8 @@ ENV ZOO_USER=zookeeper \
     ZOO_MAX_CLIENT_CNXNS=60
 
 # Add a user and make dirs
-RUN set -ex; \
-    adduser -D "$ZOO_USER"; \
+RUN set -eux; \
+    useradd -r "$ZOO_USER"; \
     mkdir -p "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" "$ZOO_LOG_DIR"; \
     chown "$ZOO_USER:$ZOO_USER" "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" "$ZOO_LOG_DIR"
 
@@ -28,11 +37,7 @@ ARG GPG_KEY=3F7A1D16FA4217B1DC75E1C9FFE35B7F15DFA1BA
 ARG DISTRO_NAME=zookeeper-3.4.14
 
 # Download Apache Zookeeper, verify its PGP signature, untar and clean up
-RUN set -ex; \
-    apk add --no-cache --virtual .build-deps \
-        ca-certificates \
-        gnupg \
-        libressl; \
+RUN set -eux; \
     wget -q "https://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz"; \
     wget -q "https://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz.asc"; \
     export GNUPGHOME="$(mktemp -d)"; \
@@ -43,7 +48,7 @@ RUN set -ex; \
     tar -xzf "$DISTRO_NAME.tar.gz"; \
     mv "$DISTRO_NAME/conf/"* "$ZOO_CONF_DIR"; \
     rm -rf "$GNUPGHOME" "$DISTRO_NAME.tar.gz" "$DISTRO_NAME.tar.gz.asc"; \
-    apk del .build-deps
+    chown -R "$ZOO_USER:$ZOO_USER" "/$DISTRO_NAME"
 
 WORKDIR $DISTRO_NAME
 VOLUME ["$ZOO_DATA_DIR", "$ZOO_DATA_LOG_DIR", "$ZOO_LOG_DIR"]
