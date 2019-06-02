@@ -9,6 +9,7 @@ RUN set -eux; \
         dirmngr \
         gosu \
         gnupg \
+        netcat \
         wget; \
     rm -rf /var/lib/apt/lists/*; \
 # Verify that gosu binary works
