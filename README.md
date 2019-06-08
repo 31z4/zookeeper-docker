@@ -121,13 +121,13 @@ Defaults to `true`. Zookeeper's [`admin.enableServer`](http://zookeeper.apache.o
 ### `ZOO_AUTOPURGE_PURGEINTERVAL`
 
 Defaults to `0`. Zookeeper's [`autoPurge.purgeInterval`](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_advancedConfiguration)
-> New in 3.4.0: The time interval in hours for which the purge task has to be triggered. Set to a positive integer (1 and above) to enable the auto purging. Defaults to 0.
+> The time interval in hours for which the purge task has to be triggered. Set to a positive integer (1 and above) to enable the auto purging. Defaults to 0.
 
 ### `ZOO_AUTOPURGE_SNAPRETAINCOUNT`
 
 Defaults to `3`. Zookeeper's [`autoPurge.snapRetainCount`](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_advancedConfiguration)
 
->New in 3.4.0: When enabled, ZooKeeper auto purge feature retains the autopurge.snapRetainCount most recent snapshots and the corresponding transaction logs in the dataDir and dataLogDir respectively and deletes the rest. Defaults to 3. Minimum value is 3.
+> When enabled, ZooKeeper auto purge feature retains the autopurge.snapRetainCount most recent snapshots and the corresponding transaction logs in the dataDir and dataLogDir respectively and deletes the rest. Defaults to 3. Minimum value is 3.
 
 ## Replicated mode
 
@@ -161,4 +161,4 @@ This image is configured with a volume at `/logs` for your convenience.
 
 # License
 
-View [license information](https://github.com/apache/zookeeper/blob/release-3.4.14/LICENSE.txt) for the software contained in this image.
+View [license information](https://github.com/apache/zookeeper/blob/release-3.5.5/LICENSE.txt) for the software contained in this image.
