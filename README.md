@@ -3,8 +3,6 @@
 * `3.4.14`, `3.4` [(3.4.14/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.4.14/Dockerfile)
 * `3.5.5`, `3.5`, `latest` [(3.5.5/Dockerfile)](https://github.com/31z4/zookeeper-docker/blob/master/3.5.5/Dockerfile)
 
-[![](https://images.microbadger.com/badges/image/31z4/zookeeper.svg)](http://microbadger.com/images/31z4/zookeeper)
-
 # What is Apache Zookeeper?
 
 Apache ZooKeeper is a software project of the Apache Software Foundation, providing an open source distributed configuration service, synchronization service, and naming registry for large distributed systems. ZooKeeper was a sub-project of Hadoop but is now a top-level project in its own right.
