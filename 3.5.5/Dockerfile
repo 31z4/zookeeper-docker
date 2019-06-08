@@ -15,8 +15,8 @@ ENV ZOO_CONF_DIR=/conf \
 
 # Add a user with an explicit UID/GID and create necessary directories
 RUN set -eux; \
-    groupadd -r zookeeper --gid=999; \
-    useradd -r -g zookeeper --uid=999 zookeeper; \
+    groupadd -r zookeeper --gid=1000; \
+    useradd -r -g zookeeper --uid=1000 zookeeper; \
     mkdir -p "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" "$ZOO_LOG_DIR"; \
     chown zookeeper:zookeeper "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR" "$ZOO_CONF_DIR" "$ZOO_LOG_DIR"
 
