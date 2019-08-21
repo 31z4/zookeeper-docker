@@ -32,6 +32,11 @@ if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
     for server in $ZOO_SERVERS; do
         echo "$server" >> "$CONFIG"
     done
+
+    if [[ -n $ZOO_4LW_COMMANDS_WHITELIST ]]; then
+        echo "4lw.commands.whitelist=$ZOO_4LW_COMMANDS_WHITELIST" >> "$CONFIG"
+    fi
+
 fi
 
 # Write myid only if it doesn't exist
