@@ -38,8 +38,26 @@ ARG DISTRO_NAME=zookeeper-3.4.14
 
 # Download Apache Zookeeper, verify its PGP signature, untar and clean up
 RUN set -eux; \
-    wget -q "https://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz"; \
-    wget -q "https://www.apache.org/dist/zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz.asc"; \
+    ddist() { \
+        local f="$1"; shift; \
+        local distFile="$1"; shift; \
+        local success=; \
+        local distUrl=; \
+        for distUrl in \
+            'https://www.apache.org/dyn/closer.cgi?action=download&filename=' \
+            https://www-us.apache.org/dist/ \
+            https://www.apache.org/dist/ \
+            https://archive.apache.org/dist/ \
+        ; do \
+            if wget -q -O "$f" "$distUrl$distFile" && [ -s "$f" ]; then \
+                success=1; \
+                break; \
+            fi; \
+        done; \
+        [ -n "$success" ]; \
+    }; \
+    ddist "$DISTRO_NAME.tar.gz" "zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz"; \
+    ddist "$DISTRO_NAME.tar.gz.asc" "zookeeper/$DISTRO_NAME/$DISTRO_NAME.tar.gz.asc"; \
     export GNUPGHOME="$(mktemp -d)"; \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-key "$GPG_KEY" || \
     gpg --keyserver pgp.mit.edu --recv-keys "$GPG_KEY" || \
