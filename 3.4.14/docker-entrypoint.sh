@@ -11,19 +11,19 @@ fi
 # Generate the config only if it doesn't exist
 if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
     CONFIG="$ZOO_CONF_DIR/zoo.cfg"
+    {
+        echo "clientPort=2181"
+        echo "dataDir=$ZOO_DATA_DIR"
+        echo "dataLogDir=$ZOO_DATA_LOG_DIR"
 
-    echo "clientPort=2181" >> "$CONFIG"
-    echo "dataDir=$ZOO_DATA_DIR" >> "$CONFIG"
-    echo "dataLogDir=$ZOO_DATA_LOG_DIR" >> "$CONFIG"
+        echo "tickTime=$ZOO_TICK_TIME"
+        echo "initLimit=$ZOO_INIT_LIMIT"
+        echo "syncLimit=$ZOO_SYNC_LIMIT"
 
-    echo "tickTime=$ZOO_TICK_TIME" >> "$CONFIG"
-    echo "initLimit=$ZOO_INIT_LIMIT" >> "$CONFIG"
-    echo "syncLimit=$ZOO_SYNC_LIMIT" >> "$CONFIG"
-
-    echo "autopurge.snapRetainCount=$ZOO_AUTOPURGE_SNAPRETAINCOUNT" >> "$CONFIG"
-    echo "autopurge.purgeInterval=$ZOO_AUTOPURGE_PURGEINTERVAL" >> "$CONFIG"
-    echo "maxClientCnxns=$ZOO_MAX_CLIENT_CNXNS" >> "$CONFIG"
-
+        echo "autopurge.snapRetainCount=$ZOO_AUTOPURGE_SNAPRETAINCOUNT"
+        echo "autopurge.purgeInterval=$ZOO_AUTOPURGE_PURGEINTERVAL"
+        echo "maxClientCnxns=$ZOO_MAX_CLIENT_CNXNS"
+    } >> "$CONFIG"
     for server in $ZOO_SERVERS; do
         echo "$server" >> "$CONFIG"
     done
