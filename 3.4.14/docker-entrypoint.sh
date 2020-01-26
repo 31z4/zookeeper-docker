@@ -17,6 +17,7 @@ if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
         echo "dataLogDir=$ZOO_DATA_LOG_DIR"
 
         echo "tickTime=$ZOO_TICK_TIME"
+        echo "maxSessionTimeout=$ZOO_MAX_SESSION_TIMEOUT"
         echo "initLimit=$ZOO_INIT_LIMIT"
         echo "syncLimit=$ZOO_SYNC_LIMIT"
 
