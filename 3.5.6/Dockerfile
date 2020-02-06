@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim
+FROM adoptopenjdk:latest
 
 ENV ZOO_CONF_DIR=/conf \
     ZOO_DATA_DIR=/data \
@@ -27,13 +27,10 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends \
         ca-certificates \
         dirmngr \
-        gosu \
         gnupg \
         netcat \
         wget; \
-    rm -rf /var/lib/apt/lists/*; \
-# Verify that gosu binary works
-    gosu nobody true
+    rm -rf /var/lib/apt/lists/*;
 
 ARG GPG_KEY=BBE7232D7991050B54C8EA0ADC08637CA615D22C
 ARG SHORT_DISTRO_NAME=zookeeper-3.5.6
