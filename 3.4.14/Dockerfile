@@ -1,4 +1,4 @@
-FROM adoptopenjdk:latest
+FROM adoptopenjdk:8u232-b09-jre-hotspot
 
 ENV ZOO_CONF_DIR=/conf \
     ZOO_DATA_DIR=/data \
