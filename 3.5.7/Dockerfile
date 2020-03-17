@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim
+FROM openjdk:11-jre-slim
 
 ENV ZOO_CONF_DIR=/conf \
     ZOO_DATA_DIR=/data \
