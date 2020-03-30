@@ -11,7 +11,8 @@ ENV ZOO_CONF_DIR=/conf \
     ZOO_AUTOPURGE_SNAPRETAINCOUNT=3 \
     ZOO_MAX_CLIENT_CNXNS=60 \
     ZOO_STANDALONE_ENABLED=true \
-    ZOO_ADMINSERVER_ENABLED=true
+    ZOO_ADMINSERVER_ENABLED=true \
+    ZOO_SERVER_CNXN_FACTORY=org.apache.zookeeper.server.NettyServerCnxnFactory
 
 # Add a user with an explicit UID/GID and create necessary directories
 RUN set -eux; \
