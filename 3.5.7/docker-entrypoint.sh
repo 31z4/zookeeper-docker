@@ -37,6 +37,20 @@ if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
         echo "4lw.commands.whitelist=$ZOO_4LW_COMMANDS_WHITELIST" >> "$CONFIG"
     fi
 
+    if [[ -n $ZOO_SECURE_CLIENT_PORT ]]; then
+        {
+            echo "secureClientPort=$ZOO_SECURE_CLIENT_PORT"
+            echo "serverCnxnFactory=$ZOO_SERVER_CNXN_FACTORY"
+            echo "ssl.keyStore.location=$ZOO_SSL_KEYSTORE_LOCATION"
+            echo "ssl.keyStore.password=$ZOO_SSL_KEYSTORE_PASSWORD"
+            echo "ssl.trustStore.location=$ZOO_SSL_TRUSTSTORE_LOCATION"
+            echo "ssl.trustStore.password=$ZOO_SSL_TRUSTSTORE_PASSWORD"
+        } >> "$CONFIG"
+    fi
+
+    if [[ -n $ZOO_CLIENT_PORT_UNIFICATION ]]; then
+        echo "client.portUnification=$ZOO_CLIENT_PORT_UNIFICATION" >> "$CONFIG"
+    fi
 fi
 
 # Write myid only if it doesn't exist
