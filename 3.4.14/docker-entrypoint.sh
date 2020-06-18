@@ -27,6 +27,10 @@ if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
     for server in $ZOO_SERVERS; do
         echo "$server" >> "$CONFIG"
     done
+
+    for cfg_extra_entry in $ZOO_CFG_EXTRA; do
+        echo "$cfg_extra_entry" >> "$CONFIG"
+    done
 fi
 
 # Write myid only if it doesn't exist
