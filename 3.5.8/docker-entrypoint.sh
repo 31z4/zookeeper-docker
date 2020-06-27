@@ -37,6 +37,9 @@ if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
         echo "4lw.commands.whitelist=$ZOO_4LW_COMMANDS_WHITELIST" >> "$CONFIG"
     fi
 
+    for cfg_extra_entry in $ZOO_CFG_EXTRA; do
+        echo "$cfg_extra_entry" >> "$CONFIG"
+    done
 fi
 
 # Write myid only if it doesn't exist
