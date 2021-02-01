@@ -35,7 +35,7 @@ RUN set -eux; \
 # Verify that gosu binary works
     gosu nobody true
 
-ARG GPG_KEY=DE885DD3
+ARG GPG_KEY=3D296268A36FACA1B7EAF110792D43153B5B5147
 ARG SHORT_DISTRO_NAME=zookeeper-3.5.9
 ARG DISTRO_NAME=apache-zookeeper-3.5.9-bin
 
@@ -63,9 +63,8 @@ RUN set -eux; \
     ddist "$DISTRO_NAME.tar.gz.asc" "zookeeper/$SHORT_DISTRO_NAME/$DISTRO_NAME.tar.gz.asc"; \
     export GNUPGHOME="$(mktemp -d)"; \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-key "$GPG_KEY" || \
-    gpg --keyserver hkps://pgp.mit.edu --recv-keys "$GPG_KEY" || \
-    gpg --keyserver hkps://keyserver.pgp.com --recv-keys "$GPG_KEY" \
-    echo "verify the gpg signature" \
+    gpg --keyserver pgp.mit.edu --recv-keys "$GPG_KEY" || \
+    gpg --keyserver keyserver.pgp.com --recv-keys "$GPG_KEY"; \
     gpg --batch --verify "$DISTRO_NAME.tar.gz.asc" "$DISTRO_NAME.tar.gz"; \
     tar -zxf "$DISTRO_NAME.tar.gz"; \
     mv "$DISTRO_NAME/conf/"* "$ZOO_CONF_DIR"; \
