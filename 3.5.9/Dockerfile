@@ -22,7 +22,7 @@ RUN set -eux; \
 
 # Install required packges
 RUN set -eux; \
-    apt-get update; \
+    apt-get -qq update; \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
         ca-certificates \
@@ -35,9 +35,9 @@ RUN set -eux; \
 # Verify that gosu binary works
     gosu nobody true
 
-ARG GPG_KEY=52A7EA3EECAE05B0A8306471790761798F6E35FC
-ARG SHORT_DISTRO_NAME=zookeeper-3.5.8
-ARG DISTRO_NAME=apache-zookeeper-3.5.8-bin
+ARG GPG_KEY=DE885DD3
+ARG SHORT_DISTRO_NAME=zookeeper-3.5.9
+ARG DISTRO_NAME=apache-zookeeper-3.5.9-bin
 
 # Download Apache Zookeeper, verify its PGP signature, untar and clean up
 RUN set -eux; \
@@ -63,8 +63,9 @@ RUN set -eux; \
     ddist "$DISTRO_NAME.tar.gz.asc" "zookeeper/$SHORT_DISTRO_NAME/$DISTRO_NAME.tar.gz.asc"; \
     export GNUPGHOME="$(mktemp -d)"; \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-key "$GPG_KEY" || \
-    gpg --keyserver pgp.mit.edu --recv-keys "$GPG_KEY" || \
-    gpg --keyserver keyserver.pgp.com --recv-keys "$GPG_KEY"; \
+    gpg --keyserver hkps://pgp.mit.edu --recv-keys "$GPG_KEY" || \
+    gpg --keyserver hkps://keyserver.pgp.com --recv-keys "$GPG_KEY" \
+    echo "verify the gpg signature" \
     gpg --batch --verify "$DISTRO_NAME.tar.gz.asc" "$DISTRO_NAME.tar.gz"; \
     tar -zxf "$DISTRO_NAME.tar.gz"; \
     mv "$DISTRO_NAME/conf/"* "$ZOO_CONF_DIR"; \
