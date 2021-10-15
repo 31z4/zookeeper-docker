@@ -42,7 +42,7 @@ if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
     done
 fi
 
-ZOOCFGDIR=$ZOO_CONF_DIR
+export ZOOCFGDIR=$ZOO_CONF_DIR
 
 # Write myid only if it doesn't exist
 if [[ ! -f "$ZOO_DATA_DIR/myid" ]]; then
