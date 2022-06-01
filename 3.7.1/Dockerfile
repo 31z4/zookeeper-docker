@@ -35,9 +35,9 @@ RUN set -eux; \
 # Verify that gosu binary works
     gosu nobody true
 
-ARG GPG_KEY=AF3D175EC05DB249738D01AC8D8C3C3ED0B02E66
-ARG SHORT_DISTRO_NAME=zookeeper-3.7.0
-ARG DISTRO_NAME=apache-zookeeper-3.7.0-bin
+ARG GPG_KEY=DFF24FB8323ADAC90E3CF36F729E61230EA917E9
+ARG SHORT_DISTRO_NAME=zookeeper-3.7.1
+ARG DISTRO_NAME=apache-zookeeper-3.7.1-bin
 
 # Download Apache Zookeeper, verify its PGP signature, untar and clean up
 RUN set -eux; \
