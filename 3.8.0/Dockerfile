@@ -27,6 +27,7 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends \
         ca-certificates \
         dirmngr \
+        dumb-init \
         gosu \
         gnupg \
         netcat \
@@ -80,5 +81,5 @@ ENV PATH=$PATH:/$DISTRO_NAME/bin \
     ZOOCFGDIR=$ZOO_CONF_DIR
 
 COPY docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "/docker-entrypoint.sh"]
 CMD ["zkServer.sh", "start-foreground"]
