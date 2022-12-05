@@ -7,6 +7,8 @@ if [[ "$1" = 'zkServer.sh' && "$(id -u)" = '0' ]]; then
     chown -R zookeeper "$ZOO_DATA_DIR" "$ZOO_DATA_LOG_DIR" "$ZOO_LOG_DIR"
     exec gosu zookeeper "$0" "$@"
 fi
+IDNUM=`echo ${HOSTNAME:0-1}`
+let ZOO_MY_ID=$IDNUM+1
 
 # Generate the config only if it doesn't exist
 if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
