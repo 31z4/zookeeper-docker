@@ -11,7 +11,9 @@ ENV ZOO_CONF_DIR=/conf \
     ZOO_AUTOPURGE_SNAPRETAINCOUNT=3 \
     ZOO_MAX_CLIENT_CNXNS=60 \
     ZOO_STANDALONE_ENABLED=true \
-    ZOO_ADMINSERVER_ENABLED=true
+    ZOO_ADMINSERVER_ENABLED=true \
+    ZOO_LOG_APPENDER=CONSOLE \
+    ZOO_LOG_LEVEL=INFO
 
 # Add a user with an explicit UID/GID and create necessary directories
 RUN set -eux; \
@@ -70,6 +72,9 @@ RUN set -eux; \
     mv "$DISTRO_NAME/conf/"* "$ZOO_CONF_DIR"; \
     rm -rf "$GNUPGHOME" "$DISTRO_NAME.tar.gz" "$DISTRO_NAME.tar.gz.asc"; \
     chown -R zookeeper:zookeeper "/$DISTRO_NAME"
+
+# Add custom logback.xml
+COPY logback.xml $ZOO_CONF_DIR/logback.xml
 
 WORKDIR $DISTRO_NAME
 VOLUME ["$ZOO_DATA_DIR", "$ZOO_DATA_LOG_DIR", "$ZOO_LOG_DIR"]

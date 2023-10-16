@@ -1,0 +1,41 @@
+<!-- Custom logback file by zookeeper-docker  -->
+<configuration>
+  <property name="zookeeper.log.dir" value="." />
+
+  <!--
+    console
+    Add "console" to root logger if you want to use this
+  -->
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>${zookeeper.console.threshold:-INFO}</level>
+    </filter>
+  </appender>
+
+  <!--
+    Add ROLLINGFILE to root logger to get log file output
+  -->
+  <appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <File>${zookeeper.log.dir}/${zookeeper.log.file:-zookeeper.log}</File>
+    <encoder>
+      <pattern>%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>${zookeeper.log.threshold:-INFO}</level>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <maxIndex>${zookeeper.log.maxbackupindex:-20}</maxIndex>
+      <FileNamePattern>${zookeeper.log.dir}/${zookeeper.log.file:-zookeeper.log}.%i</FileNamePattern>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <MaxFileSize>${zookeeper.log.maxfilesize:-256MB}</MaxFileSize>
+    </triggeringPolicy>
+  </appender>
+
+  <root level="${zookeeper.log.level:-INFO}">
+    <appender-ref ref="${zookeeper.log.appender:-CONSOLE}" />
+  </root>
+</configuration>
