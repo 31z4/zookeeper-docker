@@ -32,6 +32,7 @@ RUN set -eux; \
         netcat \
         wget; \
     rm -rf /var/lib/apt/lists/*; \
+    mkdir /docker-entrypoint.d && \
 # Verify that gosu binary works
     gosu nobody true
 
